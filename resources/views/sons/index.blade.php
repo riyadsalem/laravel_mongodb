@@ -7,7 +7,7 @@
             <div class="ml-auto">
                 <a href="{{ route('home') }}">Home</a> -
                 <a href="{{ route('sons.index') }}">Sons</a> -
-                <a href="">Grandsons</a>
+                <a href="{{ route('grandsons.index') }}">Grandsons</a>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
             @endif
 
             <div class="text-right">
-                <a href="">Create son</a>
+                <a href="{{ route('sons.create') }}">Create son</a>
             </div>
 
             <div class="table-responsive">

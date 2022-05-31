@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Grandson;
+use App\Models\Son;
 
 class SonController extends Controller
 {
@@ -24,7 +26,7 @@ class SonController extends Controller
      */
     public function create()
     {
-        //
+        return view('sons.create');
     }
 
     /**
@@ -35,7 +37,19 @@ class SonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'birth_date' => 'required|date_format:Y-m-d'
+        ]);
+
+        auth()->user()->sons()->create([
+            'name' => $request->input('name'),
+            'birth_date' => $request->input('birth_date'),
+        ]);
+
+        return back()->with('status', 'Son is created');
+
     }
 
     /**

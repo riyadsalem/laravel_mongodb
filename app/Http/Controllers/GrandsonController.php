@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grandson;
+use App\Models\Son;
 use Illuminate\Http\Request;
 
 class GrandsonController extends Controller
@@ -14,8 +15,20 @@ class GrandsonController extends Controller
      */
     public function index()
     {
-        $grandsons = auth()->user()->sons()->with('grandsons')->where('_id',\request()->input('son_id'))->first()->grandsons;
-        return view('grandsons.index',compact('grandsons'));
+        $sonId = \request()->has('son_id') && \request()->input('son_id') !== '' ? \request()->input('son_id') : null;
+        if (!$sonId) {
+            $grandsons = collect([]);
+            auth()->user()->sons()->each(function ($son) use ($grandsons) {
+                $grandsons->add($son->grandsons);
+            });
+
+            $grandsons = collect($grandsons->flatten())->paginate(5);
+
+        }else {
+            $grandsons = auth()->user()->sons()->with('grandsons')
+                ->where('_id', $sonId)->first()->grandsons->paginate(5);
+        }
+        return view('grandsons.index', compact('grandsons'));
     }
 
     /**

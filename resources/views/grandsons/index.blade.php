@@ -7,7 +7,7 @@
             <div class="ml-auto">
                 <a href="{{ route('home') }}">Home</a> -
                 <a href="{{ route('sons.index') }}">Sons</a> -
-                <a href="">Grandsons</a>
+                <a href="{{ route('grandsons.index') }}">Grandsons</a>
             </div>
         </div>
 
@@ -44,6 +44,15 @@
                         </tr>
                     @endforelse
                     </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                {!! $grandsons->links() !!}
+                            </td>
+                        </tr>
+                    </tfoot>
+
                 </table>
             </div>
         </div>
