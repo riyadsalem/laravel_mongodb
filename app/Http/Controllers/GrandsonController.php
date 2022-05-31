@@ -38,7 +38,8 @@ class GrandsonController extends Controller
      */
     public function create()
     {
-        //
+        $sons = auth()->user()->sons;
+        return view('grandsons.create', compact('sons'));
     }
 
     /**
@@ -49,7 +50,24 @@ class GrandsonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+                
+        $request->validate([
+            'son_id' => 'required',
+            'name' => 'required',
+            'birth_date' => 'required|date_format:Y-m-d'
+        ]);
+
+       // dd($request->all());
+
+       Grandson::insert([
+           'son_id' => $request->input('son_id'),
+           'name' => $request->input('name'),
+           'birth_date' => $request->input('birth_date')
+       ]);
+        
+        return back()->with('status', 'GrandSon is Inserted');
+        
     }
 
     /**
@@ -69,9 +87,10 @@ class GrandsonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Grandson $grandson) // Because use resource
     {
-        //
+        $sons = auth()->user()->sons;
+        return view('grandsons.edit',compact('sons','grandson'));
     }
 
     /**
@@ -81,9 +100,22 @@ class GrandsonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Grandson $grandson)
     {
-        //
+        $request->validate([
+            'son_id' => 'required',
+            'name' => 'required',
+            'birth_date' => 'required|date_format:Y-m-d'
+        ]);
+
+        $grandson->update([
+            'son_id' => $request->input('son_id'),
+            'name' => $request->input('name'),
+            'birth_date' => $request->input('birth_date'),
+        ]);
+
+        return back()->with('status', 'Grandson is updated');
+
     }
 
     /**
@@ -92,8 +124,9 @@ class GrandsonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Grandson $grandson)
     {
-        //
+        $grandson->delete();
+        return back()->with('status', 'Grandson is Deleted');
     }
 }

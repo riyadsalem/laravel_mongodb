@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-header d-flex">
-            {{ __('Create Son') }}
+            {{ __('Create Grandson') }}
             <div class="ml-auto">
                 <a href="{{ route('home') }}">Home</a> -
                 <a href="{{ route('sons.index') }}">Sons</a> -
@@ -18,8 +18,26 @@
                 </div>
             @endif
 
-            <form action="{{ route('sons.store') }}" method="post">
+            <form action="{{ route('grandsons.store') }}" method="post">
                 @csrf
+
+                <div class="form-group">
+                    <label for="son_id">Father</label>
+
+                    <select name="son_id" class="form-control">
+                        <option value="">Select Father</option>
+                        @forelse($sons as $son)
+                        <option value="{{ $son->id }}" {{ old('son_id') == $son->id ? 'selected' : null }}>
+                            {{ $son->name }}
+                        </option>
+
+                        @empty
+                        @endforelse
+                    </select>
+
+                    @error('son_id')<span class="text-danger">{{ $message }}</span>@enderror
+                </div>
+
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" value="{{ old('name') }}" class="form-control">
@@ -33,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-primary">Add Son</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Add Grandson</button>
                 </div>
             </form>
         </div>

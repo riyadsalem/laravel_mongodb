@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-header d-flex">
-            {{ __('Grandsons') }}
+            {{ __('GrandSon') }}
             <div class="ml-auto">
                 <a href="{{ route('home') }}">Home</a> -
                 <a href="{{ route('sons.index') }}">Sons</a> -
@@ -19,8 +19,9 @@
             @endif
 
             <div class="text-right">
-                <a href="">Create son</a>
+                <a href="{{ route('grandsons.create') }}">Add GrandSon</a>
             </div>
+
 
             <div class="table-responsive">
                 <table class="table">
@@ -28,7 +29,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Father Name</th>
                         <th>Birth Date</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,18 +40,31 @@
                         <tr>
                             <td>{{ $grandson->id }}</td>
                             <td>{{ $grandson->name }}</td>
+                            <td>{{ $grandson->son->name }}</td>
                             <td>{{ $grandson->birth_date }}</td>
+                            <td><a href="{{ route('grandsons.edit',$grandson->id) }}" class="btn btn-success btn-sm">Edit</a></td>
+
+                            <!-- Because used Action Delete >> to use action="delete" -->
+
+                            <td>
+                                <form action="{{ route('grandsons.destroy', $grandson->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No Grandsons found</td>
+                            <td colspan="6">No Grandsons found</td>
                         </tr>
                     @endforelse
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <td colspan="4">
+                            <td colspan="6">
                                 {!! $grandsons->links() !!}
                             </td>
                         </tr>
