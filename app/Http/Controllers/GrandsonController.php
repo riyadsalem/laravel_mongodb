@@ -129,4 +129,5 @@ class GrandsonController extends Controller
         $grandson->delete();
         return back()->with('status', 'Grandson is Deleted');
     }
+
 }

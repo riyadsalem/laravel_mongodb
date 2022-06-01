@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SonController;
 use App\Http\Controllers\GrandsonController;
+use App\Http\Controllers\PostController;
+
 
 
 /*
@@ -29,6 +31,7 @@ Route::resource('sons',SonController::class);
 
 Route::resource('grandsons',GrandsonController::class);
 
+Route::resource('posts', PostController::class);
 
 
 

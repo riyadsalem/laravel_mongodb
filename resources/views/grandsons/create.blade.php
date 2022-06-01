@@ -7,7 +7,9 @@
             <div class="ml-auto">
                 <a href="{{ route('home') }}">Home</a> -
                 <a href="{{ route('sons.index') }}">Sons</a> -
-                <a href="{{ route('grandsons.index') }}">Grandsons</a>
+                <a href="{{ route('grandsons.index') }}">Grandsons</a> - 
+                <a href="{{ route('posts.index') }}">Posts</a>
+
             </div>
         </div>
 

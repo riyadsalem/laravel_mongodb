@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Post;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(SonSeeder::class);
         $this->call(GrandsonSeeder::class);
+
+        Post::factory(100)->create();
+
         
     }
 }
